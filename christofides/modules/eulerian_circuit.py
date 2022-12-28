@@ -1,28 +1,9 @@
 # Eulerian Circuit using Hierholzer's Algorithm
 #
 # Author: William Schloetel 
-# Date: 09/22/22
+# Date: 12/20/22
 
 import copy
-
-
-# TEST GRAPH (not completely connected)
-# //////////////////////////////////////////////////////////////////////////////////////////////
-
-nodes = [0, 1, 2, 3, 4, 5]
-
-# edge = (node1, node2, weight)
-
-#edges = [(0, 1, 28), (0, 2, 19), (0, 3, 12), (0, 5, 11), (1, 2, 33), (1, 3, 23), \
-			 (1, 4, 42), (2, 4, 57), (2, 5, 45)]
-
-#adj_set = {0: {1, 2, 3, 5}, 1: {0, 2, 3, 4}, 2: {0, 1, 4, 5}, 3: {0, 1}, 4: {1, 2}, 5: {0, 2}}
-
-#adj_list = {0: [1, 2, 3, 5], 1: [0, 2, 3, 4], 2: [0, 1, 4, 5], 3: [0, 1], 4: [1, 2], 5: [0, 2]}
-
-
-# //////////////////////////////////////////////////////////////////////////////////////////////
-
 
 def create_adj_set(edges):
 	adj_set = dict()
@@ -50,7 +31,6 @@ def create_adj_list(edges):
 			adj_list[edge[1]] = [edge[0]]	
 	return adj_list
 
-
 def hierholzer_with_set(edges, adj_set):
 	"""Returns a list of edges forming an Euler Path using Hierholzer's Algorithm"""
 	if not is_eulerian(adj_set):
@@ -73,8 +53,6 @@ def hierholzer_with_set(edges, adj_set):
 	    	euler_path.insert(0, euler_path.pop())	# insert end at beginning 
 	    	curr_node = euler_path[-1]
 	return euler_path
-
-
 
 def hierholzer_with_list(edges, adj_list):
 	"""Returns a list of edges forming an Euler Path using Hierholzer's Algorithm"""
@@ -100,14 +78,11 @@ def hierholzer_with_list(edges, adj_list):
 	    	curr_node = euler_path[-1]
 	return euler_path
 
-
-
 def is_eulerian(adj_set):
 	for node in adj_set:
 		if len(adj_set[node]) % 2 > 0:
 			return False
 	return True
-
 
 def hamiltonian(euler_path):
 	circuit = []

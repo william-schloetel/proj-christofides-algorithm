@@ -11,7 +11,6 @@ class WeightedQuickUnion:
 		self.nodes = nodes
 		self.parent = []
 		self.size = []
-
 		for i in range(len(nodes)):
 			self.parent.append(-1)
 			self.size.append(1)
@@ -29,7 +28,6 @@ class WeightedQuickUnion:
 		"""Groups nodes n1 and n2 into the same set""" 
 		if self.is_grouped(n1, n2):
 			return
-
 		n1_root = self.find_root(n1)
 		n2_root = self.find_root(n2)
 		if self.size[n1_root] > self.size[n2_root]:
