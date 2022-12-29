@@ -3,28 +3,12 @@
 # Author: William S.
 # Date: 12/16/22
 
-import modules.kruskals_algorithm as kruskals_algorithm
-import modules.eulerian_circuit as euler
-import modules.min_weight_perf_matching as matching
+import modules
 import os
 
 
 # TEST GRAPH
 # /////////////////////////////////////////////////////////////////////////////////
-
-# INCORRECT
-# edge = (node1, node2, weight)
-# edges =[(8, 9, 0), (0, 4, 1), (2, 8, 1), (4, 5, 1), (6, 7, 1), (1, 3, 2), \
-# 		(2, 9, 2), (3, 4, 2), (3, 7, 2), (0, 3, 4), (1, 2, 4), (2, 7, 4), \
-# 		(6, 8, 4), (0, 1, 5), (3, 5, 5), (7, 8, 6), (5, 6, 7), (3, 6, 11)]
-# nodes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-
-# INCORRECT
-# edges = [(0, 1, 1), (0, 2, 2), (0, 3, 8), (0, 4, 9), (1, 2, 1), (1, 3, 25), \
-#		(1, 4, 4), (2, 3, 3), (2, 4, 1), (3, 4, 10)]
-# nodes = [0, 1, 2, 3, 4]
-
 
 # GRAPH 1
 edges = [(0, 1, 1), (0, 2, 2), (0, 3, 8), (0, 4, 9), (1, 2, 1), (1, 3, 25), \
@@ -39,11 +23,10 @@ def christofides(nodes, edges):
 	Salesperson Problem. This function makes use of Vladimir Kolmogorov's
 	C++ implementation of his Blossom V algorithm for finding a Minimum Cost
 	Perfect Matching in a weighted graph. 
-
+	
 	Requirements: 	
 		- Graph must be a complete graph (every node must be connected 
-		to every other node). To randomly generate complete graphs, see
-		random_graph.py module.
+		to every other node).
 		- Graph is formated as a 0-indexed list of nodes and a list of 
 		edges, where each edge is a tuple: (node1, node2, weight)
 
@@ -53,15 +36,11 @@ def christofides(nodes, edges):
 
 	"""
 
-	#edges = sorted(edges, key=lambda edge: edge[2])
-	#nodes = sorted(nodes)
-
-
 	# ---------------------------------------------------------------------------
 	# 1. Create a minimum spanning tree T (min_span_edges) of graph G (edges).
 	print("1. Create a minimum spanning tree T (min_span_edges) of graph G (edges).")
 
-	min_span_edges = kruskals_algorithm.kruskals(nodes, edges)
+	min_span_edges = modules.kruskals(nodes, edges)
 
 
 	# ---------------------------------------------------------------------------
@@ -86,6 +65,16 @@ def christofides(nodes, edges):
 		if edge[0] in odd_nodes and edge[1] in odd_nodes:
 			subgraph.append(edge)
 
+
+	# ---------------------------------------------------------------------------
+	# 3. Find a minimum-weight perfect matching M (perfect_matching_edges) in 
+	#		the induced subgraph given by the vertices from O. Using Kolmogorov's 
+	#     	C++ implementation of his Blossom V algorithm. This implementation is 
+	#		currently the fastest technique in practice for computing a minimum 
+	#  		cost perfect matching.
+	print("3. Find a minimum-weight perfect matching M (perfect_matching_edges) in \
+		\n the induced subgraph given by the vertices from O.")
+
 	# format edges for Blossom V program
 	for i in range(len(odd_nodes)):
 		for j in range(len(subgraph)):
@@ -98,18 +87,8 @@ def christofides(nodes, edges):
 
 	total_num_edges = len(subgraph)
 	total_num_nodes = len(odd_nodes)
-	
 
-	# ---------------------------------------------------------------------------
-	# 3. Find a minimum-weight perfect matching M (perfect_matching_edges) in 
-	#		the induced subgraph given by the vertices from O. Using Kolmogorov's 
-	#     	C++ implementation of his Blossom V algorithm. This implementation is 
-	#		currently the fastest technique in practice for computing a minimum 
-	#  		cost perfect matching.
-	print("3. Find a minimum-weight perfect matching M (perfect_matching_edges) in \
-		\n the induced subgraph given by the vertices from O.")
-
-	perfect_matching_edges = matching.min_cost_perf_matching(total_num_edges, \
+	perfect_matching_edges = modules.min_cost_perf_matching(total_num_edges, \
 									total_num_nodes, subgraph)
 
 	# format edges back to original format
@@ -133,17 +112,17 @@ def christofides(nodes, edges):
 	# 5. Form an Eulerian circuit in H.
 	print("5. Form an Eulerian circuit in H.")
 
-	multigraph_adj_list = euler.create_adj_list(multigraph_edges)
-	euler_path = euler.hierholzer_with_list(multigraph_edges, multigraph_adj_list)
+	multigraph_adj_list = modules.create_adj_list(multigraph_edges)
+	euler_path = modules.hierholzer_with_list(multigraph_edges, multigraph_adj_list)
 
 
 	# ---------------------------------------------------------------------------
 	# 6. Make the circuit found in previous step into a Hamiltonian circuit by
 	#		skipping repeated vertices (shortcutting).
-	print("6. SMake the circuit found in previous step into a Hamiltonian circuit by \
+	print("6. Make the circuit found in previous step into a Hamiltonian circuit by \
 		\n skipping repeated vertices (shortcutting).")
 	
-	hamiltonian_ciruit = euler.hamiltonian(euler_path)
+	hamiltonian_ciruit = modules.hamiltonian(euler_path)
 	return hamiltonian_ciruit
 
 
