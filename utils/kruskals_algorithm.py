@@ -5,7 +5,7 @@
 # Date: 11/21/22
 
 import math
-import modules.weighted_quick_union as w
+import utils.weighted_quick_union as w
 
 
 def kruskals(nodes, edges):
