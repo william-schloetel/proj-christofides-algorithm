@@ -20,8 +20,6 @@ subgraph = [(8, 9, 0), (0, 4, 1), (2, 8, 1), (4, 5, 1), (6, 7, 1), (1, 3, 2), \
 def min_cost_perf_matching(total_num_edges, total_num_nodes, subgraph):
 	"""Finds the minimum cost perfect matching using Kolmogorov's Blossom V algorithm.""" 
 
-	print("subgraph")
-	print(subgraph)
 	# converting subgraph to format read by Kolmogorov's program
 	kolmogorov_formated_list_of_edges = [str(total_num_nodes) + " " + str(total_num_edges) + "\n"]
 	subgraph_dictionary = {}
@@ -33,7 +31,6 @@ def min_cost_perf_matching(total_num_edges, total_num_nodes, subgraph):
 		st = st + " " + str(edge[2]) + "\n"
 		kolmogorov_formated_list_of_edges.append(st)
 
-	print(kolmogorov_formated_list_of_edges)
 	# writing graph data to file
 	with open('utils/blossom_graph_files/subgraph.txt', 'w') as f:
 	    f.writelines(kolmogorov_formated_list_of_edges)
@@ -49,7 +46,6 @@ def min_cost_perf_matching(total_num_edges, total_num_nodes, subgraph):
 	with open('utils/blossom_graph_files/solution.txt', 'r') as s:
 		content = s.readlines()
 
-	print(content)
 	# format data in a way meaningful to christofides.py
 	perfect_matching_edges = []
 	for x in range(1, len(content)):

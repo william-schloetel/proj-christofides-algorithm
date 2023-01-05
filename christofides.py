@@ -21,7 +21,7 @@ edges = [(2, 0, 10), (1, 0, 34), (1, 2, 18)]
 # /////////////////////////////////////////////////////////////////////////////////
 
 
-def christofides(nodes, edges):
+def christofides(nodes: list[int], edges: list[int]) -> list[int]:
 	"""Python implementation of Christofides approximation to the Traveling 
 	Salesperson Problem. This function makes use of Vladimir Kolmogorov's
 	C++ implementation of his Blossom V algorithm for finding a Minimum Cost
@@ -29,15 +29,19 @@ def christofides(nodes, edges):
 	
 	Requirements: 	
 		- Graph must be a complete graph (every node must be connected 
-		to every other node).
+		to every other node)
 		- Graph is formated as a 0-indexed list of nodes and a list of 
 		edges, where each edge is a tuple: (node1, node2, weight)
+		- To generate a random, completely connected graph, 
+		see utils/random_graph.py
 
 	UPDATES & TO-DO:
-		- Will modify this function to more optimally interact with C++
+		- Modify this function to more optimally interact with C++
 		program.
 
 	"""
+	if len(nodes) < 4:
+		return nodes
 
 	# ---------------------------------------------------------------------------
 	# 1. Create a minimum spanning tree T (min_span_edges) of graph G (edges).
