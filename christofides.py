@@ -7,20 +7,6 @@ import utils
 import os
 
 
-# TEST GRAPH
-# /////////////////////////////////////////////////////////////////////////////////
-
-# GRAPH 1
-edges_ = [(0, 1, 1), (0, 2, 2), (0, 3, 8), (0, 4, 9), (1, 2, 1), (1, 3, 25), \
-		(1, 4, 4), (2, 3, 3), (2, 4, 1), (3, 4, 10)]
-nodes_ = [0, 1, 2, 3, 4]
-
-nodes = [0, 1, 2]
-edges = [(2, 0, 10), (1, 0, 34), (1, 2, 18)]
-
-# /////////////////////////////////////////////////////////////////////////////////
-
-
 def  christofides(nodes: list[int], edges: list[tuple([int, int, int])]) -> list[int]:
 	"""Python implementation of Christofides approximation to the Traveling 
 	Salesperson Problem. This function makes use of Vladimir Kolmogorov's
