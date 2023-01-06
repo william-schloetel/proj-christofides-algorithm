@@ -21,7 +21,7 @@ edges = [(2, 0, 10), (1, 0, 34), (1, 2, 18)]
 # /////////////////////////////////////////////////////////////////////////////////
 
 
-def christofides(nodes: list[int], edges: list[int]) -> list[int]:
+def  christofides(nodes: list[int], edges: list[int]) -> list[int]:
 	"""Python implementation of Christofides approximation to the Traveling 
 	Salesperson Problem. This function makes use of Vladimir Kolmogorov's
 	C++ implementation of his Blossom V algorithm for finding a Minimum Cost
